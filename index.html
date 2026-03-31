@@ -1,0 +1,862 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Samip Thakuri — Research Data Analyst</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,600&family=IBM+Plex+Sans:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #0f1419;
+    --paper: #f7f5f0;
+    --deep: #1a2744;
+    --navy: #1e3a5f;
+    --slate: #2d4a6e;
+    --gold: #c9903a;
+    --gold-light: #e8b96a;
+    --muted: #6b7e96;
+    --rule: #d4cfc4;
+    --card-bg: #ffffff;
+    --tag-bg: #e8eff8;
+    --tag-text: #1e3a5f;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'IBM Plex Sans', sans-serif;
+    background: var(--paper);
+    color: var(--ink);
+    font-size: 16px;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  /* ─── NAV ─────────────────────────────────────────────────────── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 1.1rem 3rem;
+    background: rgba(247,245,240,0.92);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--rule);
+  }
+  .nav-brand {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: var(--deep);
+    text-decoration: none;
+    letter-spacing: 0.01em;
+  }
+  .nav-links { display: flex; gap: 2.2rem; list-style: none; }
+  .nav-links a {
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--slate);
+    text-decoration: none;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--gold); }
+
+  /* ─── HERO ────────────────────────────────────────────────────── */
+  .hero {
+    min-height: 100vh;
+    display: flex; align-items: center;
+    padding: 7rem 3rem 4rem;
+    position: relative;
+    background: var(--deep);
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: 
+      radial-gradient(ellipse 80% 60% at 80% 50%, rgba(201,144,58,0.08) 0%, transparent 70%),
+      radial-gradient(ellipse 50% 40% at 20% 80%, rgba(30,58,95,0.6) 0%, transparent 60%);
+  }
+
+  /* grid lines decoration */
+  .hero::after {
+    content: '';
+    position: absolute; inset: 0;
+    background-image: 
+      linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+    background-size: 60px 60px;
+    pointer-events: none;
+  }
+
+  .hero-inner {
+    position: relative; z-index: 2;
+    max-width: 860px;
+  }
+
+  .hero-eyebrow {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.78rem;
+    color: var(--gold);
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    margin-bottom: 1.4rem;
+    display: flex; align-items: center; gap: 0.8rem;
+  }
+  .hero-eyebrow::before {
+    content: '';
+    display: block; width: 32px; height: 1px;
+    background: var(--gold);
+  }
+
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(3rem, 6vw, 5.2rem);
+    font-weight: 700;
+    color: #f0ece4;
+    line-height: 1.08;
+    margin-bottom: 1.6rem;
+  }
+  .hero h1 em {
+    font-style: italic;
+    color: var(--gold-light);
+  }
+
+  .hero-sub {
+    font-size: 1.05rem;
+    color: rgba(240,236,228,0.72);
+    max-width: 600px;
+    margin-bottom: 2.8rem;
+    font-weight: 300;
+    line-height: 1.8;
+  }
+
+  .hero-ctas {
+    display: flex; gap: 1rem; flex-wrap: wrap;
+    margin-bottom: 4rem;
+  }
+  .btn-primary {
+    display: inline-block;
+    background: var(--gold);
+    color: var(--deep);
+    padding: 0.75rem 1.8rem;
+    font-weight: 600;
+    font-size: 0.88rem;
+    text-decoration: none;
+    letter-spacing: 0.04em;
+    transition: background 0.2s, transform 0.15s;
+  }
+  .btn-primary:hover { background: var(--gold-light); transform: translateY(-1px); }
+  .btn-outline {
+    display: inline-block;
+    border: 1px solid rgba(240,236,228,0.3);
+    color: rgba(240,236,228,0.8);
+    padding: 0.75rem 1.8rem;
+    font-weight: 500;
+    font-size: 0.88rem;
+    text-decoration: none;
+    letter-spacing: 0.04em;
+    transition: border-color 0.2s, color 0.2s;
+  }
+  .btn-outline:hover { border-color: var(--gold); color: var(--gold-light); }
+
+  .hero-stats {
+    display: flex; gap: 3rem; flex-wrap: wrap;
+    padding-top: 2.5rem;
+    border-top: 1px solid rgba(255,255,255,0.1);
+  }
+  .stat-item {}
+  .stat-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.4rem;
+    font-weight: 700;
+    color: var(--gold-light);
+    line-height: 1;
+    display: block;
+  }
+  .stat-label {
+    font-size: 0.78rem;
+    color: rgba(240,236,228,0.55);
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    margin-top: 0.3rem;
+  }
+
+  /* ─── SECTIONS ────────────────────────────────────────────────── */
+  section { padding: 6rem 3rem; }
+  .section-wrap { max-width: 1000px; margin: 0 auto; }
+
+  .section-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.72rem;
+    color: var(--gold);
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    margin-bottom: 0.8rem;
+    display: flex; align-items: center; gap: 0.8rem;
+  }
+  .section-label::before {
+    content: '';
+    display: block; width: 24px; height: 1px;
+    background: var(--gold);
+  }
+
+  h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.9rem, 3.5vw, 2.7rem);
+    font-weight: 700;
+    color: var(--deep);
+    line-height: 1.2;
+    margin-bottom: 1rem;
+  }
+  .section-desc {
+    font-size: 1rem;
+    color: var(--muted);
+    max-width: 560px;
+    margin-bottom: 3.5rem;
+  }
+
+  /* ─── SKILLS ──────────────────────────────────────────────────── */
+  #skills { background: var(--deep); }
+  #skills h2, #skills .section-label { color: #f0ece4; }
+  #skills h2 { color: #f0ece4; }
+  #skills .section-desc { color: rgba(240,236,228,0.6); }
+
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1.5px;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.06);
+  }
+  .skill-card {
+    background: rgba(255,255,255,0.03);
+    padding: 1.8rem 1.6rem;
+    transition: background 0.2s;
+  }
+  .skill-card:hover { background: rgba(201,144,58,0.07); }
+  .skill-icon {
+    font-size: 1.5rem;
+    margin-bottom: 0.8rem;
+    display: block;
+  }
+  .skill-title {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.78rem;
+    color: var(--gold);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 0.6rem;
+  }
+  .skill-items {
+    font-size: 0.88rem;
+    color: rgba(240,236,228,0.65);
+    line-height: 1.7;
+  }
+
+  /* ─── PROJECTS ────────────────────────────────────────────────── */
+  #projects { background: var(--paper); }
+
+  .cluster-header {
+    display: flex; align-items: baseline; gap: 1rem;
+    margin-bottom: 1.4rem;
+    padding-bottom: 0.8rem;
+    border-bottom: 1px solid var(--rule);
+  }
+  .cluster-num {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.72rem;
+    color: var(--muted);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+  .cluster-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.05rem;
+    color: var(--slate);
+    font-style: italic;
+  }
+
+  .project-cluster { margin-bottom: 4rem; }
+
+  .project-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 1px;
+    background: var(--rule);
+    border: 1px solid var(--rule);
+  }
+
+  .project-card {
+    background: var(--card-bg);
+    padding: 2rem 2rem 1.6rem;
+    text-decoration: none;
+    color: inherit;
+    display: block;
+    transition: background 0.2s;
+    position: relative;
+  }
+  .project-card:hover { background: #faf9f6; }
+  .project-card:hover .card-arrow { transform: translate(3px,-3px); }
+
+  .card-badge {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.68rem;
+    font-weight: 500;
+    color: var(--gold);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    background: rgba(201,144,58,0.1);
+    display: inline-block;
+    padding: 0.2rem 0.6rem;
+    margin-bottom: 1rem;
+  }
+  .card-badge.featured { background: var(--gold); color: white; }
+
+  .card-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.22rem;
+    font-weight: 600;
+    color: var(--deep);
+    margin-bottom: 0.5rem;
+    line-height: 1.3;
+  }
+
+  .card-sub {
+    font-size: 0.83rem;
+    color: var(--gold);
+    font-weight: 500;
+    margin-bottom: 0.8rem;
+  }
+
+  .card-desc {
+    font-size: 0.9rem;
+    color: #4a5568;
+    line-height: 1.7;
+    margin-bottom: 1.2rem;
+  }
+
+  .card-metrics {
+    display: flex; gap: 0.6rem; flex-wrap: wrap;
+    margin-bottom: 1.3rem;
+  }
+  .metric-pill {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.73rem;
+    font-weight: 500;
+    color: var(--deep);
+    background: #e8eff8;
+    padding: 0.25rem 0.65rem;
+  }
+  .metric-pill.accent {
+    background: rgba(201,144,58,0.12);
+    color: #8a5c1a;
+  }
+
+  .card-footer {
+    display: flex; justify-content: space-between; align-items: center;
+    padding-top: 1rem;
+    border-top: 1px solid var(--rule);
+  }
+  .card-tags { display: flex; gap: 0.45rem; flex-wrap: wrap; }
+  .tag {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.68rem;
+    color: var(--tag-text);
+    background: var(--tag-bg);
+    padding: 0.2rem 0.55rem;
+    letter-spacing: 0.04em;
+  }
+  .card-arrow {
+    font-size: 0.85rem;
+    color: var(--muted);
+    transition: transform 0.2s;
+  }
+
+  /* ─── PUBLICATIONS ────────────────────────────────────────────── */
+  #publications { background: #f0ece4; }
+  .pub-card {
+    border: 1px solid var(--rule);
+    background: white;
+    padding: 2rem 2.2rem;
+    display: flex; gap: 2rem; align-items: flex-start;
+    text-decoration: none; color: inherit;
+    transition: box-shadow 0.2s;
+  }
+  .pub-card:hover { box-shadow: 0 4px 20px rgba(0,0,0,0.08); }
+  .pub-icon {
+    font-size: 1.8rem;
+    flex-shrink: 0;
+    margin-top: 0.2rem;
+  }
+  .pub-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.72rem;
+    color: var(--gold);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+  }
+  .pub-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.15rem;
+    color: var(--deep);
+    margin-bottom: 0.5rem;
+  }
+  .pub-desc { font-size: 0.9rem; color: var(--muted); line-height: 1.6; }
+  .pub-link {
+    display: inline-flex; align-items: center; gap: 0.4rem;
+    margin-top: 0.8rem;
+    font-size: 0.83rem;
+    font-weight: 600;
+    color: var(--gold);
+    text-decoration: none;
+  }
+  .pub-link:hover { text-decoration: underline; }
+
+  /* ─── EXPERIENCE ──────────────────────────────────────────────── */
+  #experience { background: var(--paper); }
+  .exp-item {
+    display: grid;
+    grid-template-columns: 160px 1fr;
+    gap: 2.5rem;
+    padding: 2.2rem 0;
+    border-bottom: 1px solid var(--rule);
+  }
+  .exp-item:last-child { border-bottom: none; }
+  .exp-date {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.78rem;
+    color: var(--muted);
+    line-height: 1.5;
+    padding-top: 0.15rem;
+  }
+  .exp-company {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.15rem;
+    color: var(--deep);
+    margin-bottom: 0.2rem;
+  }
+  .exp-role {
+    font-size: 0.88rem;
+    font-weight: 600;
+    color: var(--gold);
+    margin-bottom: 0.8rem;
+    letter-spacing: 0.02em;
+  }
+  .exp-bullets {
+    font-size: 0.9rem;
+    color: #4a5568;
+    line-height: 1.75;
+    padding-left: 1.2rem;
+  }
+  .exp-bullets li { margin-bottom: 0.35rem; }
+  .exp-bullets strong { color: var(--deep); font-weight: 600; }
+
+  /* ─── CONTACT ─────────────────────────────────────────────────── */
+  #contact {
+    background: var(--deep);
+    text-align: center;
+  }
+  #contact h2, #contact .section-label { color: #f0ece4; }
+  #contact h2 { color: #f0ece4; }
+  .contact-tagline {
+    font-size: 1.05rem;
+    color: rgba(240,236,228,0.6);
+    max-width: 440px;
+    margin: 0 auto 2.5rem;
+    font-weight: 300;
+  }
+  .contact-links {
+    display: flex; justify-content: center; gap: 1.5rem;
+    flex-wrap: wrap;
+  }
+  .contact-link {
+    display: flex; align-items: center; gap: 0.5rem;
+    color: rgba(240,236,228,0.75);
+    text-decoration: none;
+    font-size: 0.9rem;
+    padding: 0.6rem 1.2rem;
+    border: 1px solid rgba(255,255,255,0.15);
+    transition: border-color 0.2s, color 0.2s;
+  }
+  .contact-link:hover { border-color: var(--gold); color: var(--gold-light); }
+
+  .footer-bar {
+    margin-top: 4rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid rgba(255,255,255,0.08);
+    font-size: 0.78rem;
+    color: rgba(240,236,228,0.3);
+    font-family: 'IBM Plex Mono', monospace;
+  }
+
+  /* ─── ANIMATIONS ──────────────────────────────────────────────── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(28px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .hero-inner > * {
+    animation: fadeUp 0.7s ease both;
+  }
+  .hero-eyebrow { animation-delay: 0.1s; }
+  .hero h1      { animation-delay: 0.22s; }
+  .hero-sub     { animation-delay: 0.34s; }
+  .hero-ctas    { animation-delay: 0.44s; }
+  .hero-stats   { animation-delay: 0.54s; }
+
+  /* ─── RESPONSIVE ──────────────────────────────────────────────── */
+  @media (max-width: 680px) {
+    nav { padding: 1rem 1.4rem; }
+    .nav-links { gap: 1.2rem; }
+    section { padding: 4.5rem 1.4rem; }
+    .hero { padding: 6.5rem 1.4rem 3.5rem; }
+    .hero-stats { gap: 2rem; }
+    .exp-item { grid-template-columns: 1fr; gap: 0.5rem; }
+    .pub-card { flex-direction: column; gap: 0.8rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ─── NAV ────────────────────────────────────────────────────────── -->
+<nav>
+  <a href="#" class="nav-brand">Samip Thakuri</a>
+  <ul class="nav-links">
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#publications">Research</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- ─── HERO ────────────────────────────────────────────────────────── -->
+<section class="hero">
+  <div class="hero-inner">
+    <p class="hero-eyebrow">Research Data Analyst · Wichita, KS</p>
+    <h1>Samip <em>Thakuri</em></h1>
+    <p class="hero-sub">
+      Turning institutional and public datasets into policy-relevant insights —
+      enrollment analytics, economic impact modeling, and labor market research
+      for higher education and public-sector institutions.
+    </p>
+    <div class="hero-ctas">
+      <a href="#projects" class="btn-primary">View Projects →</a>
+      <a href="https://github.com/samipdk" target="_blank" class="btn-outline">GitHub</a>
+      <a href="https://www.linkedin.com/in/samipkhthak/" target="_blank" class="btn-outline">LinkedIn</a>
+    </div>
+    <div class="hero-stats">
+      <div class="stat-item">
+        <span class="stat-num">4+</span>
+        <span class="stat-label">Years analytics experience</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-num">90</span>
+        <span class="stat-label">Universities analyzed (IPEDS)</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-num">10+</span>
+        <span class="stat-label">Kansas regions modeled</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-num">50K+</span>
+        <span class="stat-label">Insurance records processed</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── SKILLS ──────────────────────────────────────────────────────── -->
+<section id="skills">
+  <div class="section-wrap">
+    <p class="section-label">Toolkit</p>
+    <h2 style="color:#f0ece4;">Tools &amp; Expertise</h2>
+    <p class="section-desc">End-to-end research analytics — from raw public datasets to executive-ready findings.</p>
+
+    <div class="skills-grid">
+      <div class="skill-card">
+        <span class="skill-icon">🏛️</span>
+        <p class="skill-title">Institutional Research</p>
+        <p class="skill-items">IPEDS · Enrollment analytics · Retention modeling · Graduation rate analysis · Higher ed data systems</p>
+      </div>
+      <div class="skill-card">
+        <span class="skill-icon">📊</span>
+        <p class="skill-title">Economic Research</p>
+        <p class="skill-items">IMPLAN economic impact modeling · BLS &amp; Census datasets · Regional labor market analysis · Demographic analysis</p>
+      </div>
+      <div class="skill-card">
+        <span class="skill-icon">🐍</span>
+        <p class="skill-title">Python &amp; SQL</p>
+        <p class="skill-items">Pandas · NumPy · Scikit-learn · Matplotlib/Seaborn · SQLite · Window functions · CTEs · Regression modeling</p>
+      </div>
+      <div class="skill-card">
+        <span class="skill-icon">📈</span>
+        <p class="skill-title">Visualization &amp; BI</p>
+        <p class="skill-items">Power BI (PL-300 certified) · DAX · Power Query · Tableau · ArcGIS Pro · ESRI Business Analyst</p>
+      </div>
+      <div class="skill-card">
+        <span class="skill-icon">📋</span>
+        <p class="skill-title">Survey &amp; Primary Research</p>
+        <p class="skill-items">Qualtrics survey design · Survey instrumentation · Business sentiment research · Primary data collection · Research briefs</p>
+      </div>
+      <div class="skill-card">
+        <span class="skill-icon">🔬</span>
+        <p class="skill-title">Statistical Methods</p>
+        <p class="skill-items">Regression analysis · Time series forecasting · Random Forest · EDA · R (tidyverse) · Econometrics</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── PROJECTS ─────────────────────────────────────────────────────── -->
+<section id="projects">
+  <div class="section-wrap">
+    <p class="section-label">Portfolio</p>
+    <h2>3 Projects · 3 Research Domains</h2>
+    <p class="section-desc">Every project is framed around a real research question — with documented SQL analysis, Python modeling, and Power BI dashboards.</p>
+
+    <!-- Cluster 1 -->
+    <div class="project-cluster">
+      <div class="cluster-header">
+        <span class="cluster-num">Cluster 1</span>
+        <span class="cluster-title">Institutional Research · Higher Education Analytics</span>
+      </div>
+      <div class="project-cards">
+        <a class="project-card" href="https://github.com/samipdk/ipeds-enrollment-analytics" target="_blank">
+          <span class="card-badge featured">Featured · In Progress</span>
+          <p class="card-title">IPEDS Enrollment &amp; Outcome Intelligence — Midwest Universities</p>
+          <p class="card-sub">90 public universities · 6 states · 2019–2024</p>
+          <p class="card-desc">
+            Panel study of enrollment trends, retention rates, and 6-year graduation outcomes across 90 Midwest public 4-year universities.
+            ETL pipeline merging 18 IPEDS CSVs on UNITID into SQLite for structured SQL EDA. Key finding: Iowa averages 72.6% graduation rate — 37.5 points above Oklahoma.
+            Every top-10 institution retains 85%+ of students. Linear regression + Random Forest identify retention as the single strongest graduation predictor.
+          </p>
+          <div class="card-metrics">
+            <span class="metric-pill accent">90 universities</span>
+            <span class="metric-pill accent">26pt size-outcome gap</span>
+            <span class="metric-pill">6 SQL findings</span>
+            <span class="metric-pill">3-page Power BI dashboard</span>
+            <span class="metric-pill">IR-format research brief</span>
+          </div>
+          <div class="card-footer">
+            <div class="card-tags">
+              <span class="tag">Python</span>
+              <span class="tag">SQL</span>
+              <span class="tag">Power BI</span>
+              <span class="tag">IPEDS</span>
+            </div>
+            <span class="card-arrow">↗</span>
+          </div>
+        </a>
+      </div>
+    </div>
+
+    <!-- Cluster 2 -->
+    <div class="project-cluster">
+      <div class="cluster-header">
+        <span class="cluster-num">Cluster 2</span>
+        <span class="cluster-title">Workforce & Labor Market Analytics</span>
+      </div>
+      <div class="project-cards">
+        <a class="project-card" href="https://github.com/samipdk/BLS_Dashboard" target="_blank">
+          <span class="card-badge">Workforce Analytics</span>
+          <p class="card-title">Workforce &amp; Economic Analytics Dashboard — BLS Regional Labor Market</p>
+          <p class="card-sub">Kansas industries · Post-COVID workforce trends</p>
+          <p class="card-desc">
+            Analyzed BLS employment, wage, and labor force datasets covering Kansas industries to identify post-COVID workforce trends,
+            regional employment shifts, and wage disparities across 10+ industry sectors.
+            Delivered as interactive Power BI dashboards used by economic development stakeholders and public-sector leaders for policy and investment decisions.
+          </p>
+          <div class="card-metrics">
+            <span class="metric-pill accent">10+ industry sectors</span>
+            <span class="metric-pill accent">10+ Kansas regions</span>
+            <span class="metric-pill">Post-COVID trend analysis</span>
+            <span class="metric-pill">Wage disparity modeling</span>
+          </div>
+          <div class="card-footer">
+            <div class="card-tags">
+              <span class="tag">Python</span>
+              <span class="tag">SQL</span>
+              <span class="tag">Power BI</span>
+              <span class="tag">BLS Data</span>
+            </div>
+            <span class="card-arrow">↗</span>
+          </div>
+        </a>
+      </div>
+    </div>
+
+    <!-- Cluster 3 -->
+    <div class="project-cluster">
+      <div class="cluster-header">
+        <span class="cluster-num">Cluster 3</span>
+        <span class="cluster-title">Insurance & Financial Analytics</span>
+      </div>
+      <div class="project-cards">
+        <a class="project-card" href="https://github.com/samipdk/AnalyticsDashboard" target="_blank">
+          <span class="card-badge">BI Dashboard</span>
+          <p class="card-title">Life Insurance KPI Dashboard</p>
+          <p class="card-sub">Nepal Life Insurance · 50K+ policy records</p>
+          <p class="card-desc">
+            Power BI dashboard tracking enterprise KPIs across 50K+ policy, claims, and financial records —
+            claims ratio, premium growth, policy lapse rates, and underwriting margin with conditional formatting RAG status and YoY trend analysis.
+            Built Python data pipelines improving data accuracy ~20% and reducing reporting turnaround ~25%.
+          </p>
+          <div class="card-metrics">
+            <span class="metric-pill accent">50K+ records</span>
+            <span class="metric-pill accent">~20% accuracy gain</span>
+            <span class="metric-pill accent">−25% reporting time</span>
+            <span class="metric-pill">Claims · Lapse · YoY trend</span>
+          </div>
+          <div class="card-footer">
+            <div class="card-tags">
+              <span class="tag">Power BI</span>
+              <span class="tag">DAX</span>
+              <span class="tag">Python</span>
+              <span class="tag">SQL</span>
+            </div>
+            <span class="card-arrow">↗</span>
+          </div>
+        </a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ─── PUBLICATIONS ──────────────────────────────────────────────────── -->
+<section id="publications">
+  <div class="section-wrap">
+    <p class="section-label">Research Output</p>
+    <h2>Publications &amp; Research Contributions</h2>
+    <p class="section-desc">Peer-distributed research through CEDBR's institutional publication channels.</p>
+
+    <a class="pub-card" href="https://www.linkedin.com/pulse/issue-4-kansas-economic-update-april-2025-trade-bekah-selby-leach-y6nfc/" target="_blank">
+      <span class="pub-icon">📰</span>
+      <div>
+        <p class="pub-label">Contributing Analyst · CEDBR, Wichita State University · April 2025</p>
+        <p class="pub-title">Kansas Economic Update — Issue 4: Trade Impact Analysis</p>
+        <p class="pub-desc">
+          Contributed data analysis and research content to CEDBR's quarterly Kansas Economic Update newsletter series.
+          Issue 4 examined trade dynamics, tariff exposure, and economic impacts on Kansas industries and regional supply chains.
+          Distributed to public-sector partners and economic development stakeholders across the state.
+        </p>
+        <a class="pub-link" href="https://www.linkedin.com/pulse/issue-4-kansas-economic-update-april-2025-trade-bekah-selby-leach-y6nfc/" target="_blank">
+          Read on LinkedIn Pulse →
+        </a>
+      </div>
+    </a>
+  </div>
+</section>
+
+<!-- ─── EXPERIENCE ─────────────────────────────────────────────────────── -->
+<section id="experience">
+  <div class="section-wrap">
+    <p class="section-label">Work History</p>
+    <h2>Experience</h2>
+
+    <div class="exp-item">
+      <div class="exp-date">
+        Mar 2025<br>— Present<br><br>
+        Wichita, KS
+      </div>
+      <div>
+        <p class="exp-company">CEDBR, Wichita State University</p>
+        <p class="exp-role">Graduate Research Assistant</p>
+        <ul class="exp-bullets">
+          <li>Co-designed Qualtrics business sentiment survey instruments capturing industry outlook from regional stakeholders — integrating survey responses as primary inputs into <strong>IMPLAN economic impact models</strong></li>
+          <li>Conducted input-output analyses quantifying direct, indirect, and induced economic contributions across <strong>10+ Kansas regions</strong> — producing employment multipliers and GDP impact estimates in published reports</li>
+          <li>Built Python time series models analyzing employment dynamics and labor force participation across <strong>10+ industry sectors</strong> for research leadership and institutional stakeholders</li>
+          <li>Developed interactive Power BI dashboards translating BLS and Census outputs into executive-ready visual narratives for policy and investment decisions</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="exp-item">
+      <div class="exp-date">
+        Jan 2022<br>— May 2024<br><br>
+        Kathmandu, Nepal
+      </div>
+      <div>
+        <p class="exp-company">Nepal Life Insurance Co. Ltd</p>
+        <p class="exp-role">Business Intelligence Analyst</p>
+        <ul class="exp-bullets">
+          <li>Analyzed <strong>50K+ policy, claims, and financial records</strong> using SQL and Python to identify risk drivers, revenue trends, and performance patterns across multiple insurance product lines</li>
+          <li>Built Python data pipelines for actuarial datasets — improving data accuracy by <strong>~20%</strong> and reducing reporting turnaround by <strong>~25%</strong></li>
+          <li>Developed Power BI KPI dashboards monitoring enterprise performance and operational efficiency — used by senior leadership for strategic planning</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="exp-item">
+      <div class="exp-date">
+        Jan 2014<br>— Apr 2018<br><br>
+        Kathmandu, Nepal
+      </div>
+      <div>
+        <p class="exp-company">N. Amatya &amp; Co.</p>
+        <p class="exp-role">Financial Data Analyst</p>
+        <ul class="exp-bullets">
+          <li>Performed quantitative financial analysis across budgets, balance sheets, and client portfolios — delivering data-driven recommendations for investment strategy</li>
+          <li>Built Excel-based models for financial forecasting and profitability evaluation for internal and client-facing reporting</li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ─── EDUCATION ──────────────────────────────────────────────────────── -->
+<section style="background:#f0ece4; padding: 4rem 3rem;">
+  <div class="section-wrap">
+    <p class="section-label">Credentials</p>
+    <h2>Education &amp; Certifications</h2>
+
+    <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(280px,1fr)); gap:1px; background:var(--rule); border:1px solid var(--rule); margin-top:2rem;">
+      <div style="background:white; padding:1.8rem;">
+        <p style="font-family:'IBM Plex Mono',monospace; font-size:0.72rem; color:var(--gold); letter-spacing:0.12em; text-transform:uppercase; margin-bottom:0.6rem;">Expected May 2026</p>
+        <p style="font-family:'Playfair Display',serif; font-size:1.1rem; color:var(--deep); margin-bottom:0.3rem;">MS Business Analytics (STEM)</p>
+        <p style="font-size:0.88rem; color:var(--muted);">Wichita State University, Wichita KS</p>
+        <p style="font-size:0.83rem; color:#6b7e96; margin-top:0.5rem;">Statistical Modeling · Predictive Analytics · Data Visualization · Econometrics</p>
+      </div>
+      <div style="background:white; padding:1.8rem;">
+        <p style="font-family:'IBM Plex Mono',monospace; font-size:0.72rem; color:var(--gold); letter-spacing:0.12em; text-transform:uppercase; margin-bottom:0.6rem;">Certifications</p>
+        <p style="font-family:'Playfair Display',serif; font-size:1.05rem; color:var(--deep); margin-bottom:0.6rem;">Microsoft Power BI PL-300</p>
+        <p style="font-size:0.88rem; color:var(--muted); margin-bottom:0.4rem;">IBM SQL for Data Science</p>
+        <p style="font-size:0.88rem; color:var(--muted);">Johns Hopkins Healthcare Informatics Specialization</p>
+      </div>
+      <div style="background:white; padding:1.8rem;">
+        <p style="font-family:'IBM Plex Mono',monospace; font-size:0.72rem; color:var(--gold); letter-spacing:0.12em; text-transform:uppercase; margin-bottom:0.6rem;">Work Authorization</p>
+        <p style="font-family:'Playfair Display',serif; font-size:1.05rem; color:var(--deep); margin-bottom:0.4rem;">F-1 OPT · STEM Eligible</p>
+        <p style="font-size:0.88rem; color:var(--muted);">Authorized to work in the United States. Cap-exempt employer eligible (universities, research institutions, academic medical centers).</p>
+        <p style="font-size:0.83rem; color:var(--gold); margin-top:0.5rem; font-weight:500;">Available May 2026</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── CONTACT ────────────────────────────────────────────────────────── -->
+<section id="contact">
+  <div class="section-wrap" style="text-align:center;">
+    <p class="section-label" style="justify-content:center; color:var(--gold);">Let's Connect</p>
+    <h2 style="color:#f0ece4;">Open to <em style="font-style:italic; color:var(--gold-light);">new opportunities</em></h2>
+    <p class="contact-tagline">
+      Research Data Analyst · Institutional Research Analyst · Wichita, KS<br>
+      Available May 2026 · F-1 OPT (STEM eligible)
+    </p>
+    <div class="contact-links">
+      <a class="contact-link" href="mailto:samipthakuri@gmail.com">✉ samipthakuri@gmail.com</a>
+      <a class="contact-link" href="https://github.com/samipdk" target="_blank">⌥ GitHub</a>
+      <a class="contact-link" href="https://www.linkedin.com/in/samipkhthak/" target="_blank">in LinkedIn</a>
+      <a class="contact-link" href="tel:+13163725352">☎ +1 316-372-5352</a>
+    </div>
+    <p class="footer-bar">© 2025 Samip Thakuri · Research Data Analyst · Wichita, KS</p>
+  </div>
+</section>
+
+</body>
+</html>
